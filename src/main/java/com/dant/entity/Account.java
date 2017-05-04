@@ -6,6 +6,7 @@ import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Reference;
 
 import java.io.Serializable;
+import java.sql.Time;
 
 
 @Entity
@@ -21,12 +22,11 @@ public class Account implements Serializable {
 
     @Reference
     private Position location;
-    private char[] token;
+    private String token;
 
     private long updated;
 
-    public Account(ObjectId id, String firstName, String lastName, String phoneNumber, String email, String password, Position location, char[] token, long updated) {
-        this.id = id;
+    public Account(String firstName, String lastName, String phoneNumber, String email, String password, Position location, String token) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
@@ -34,12 +34,10 @@ public class Account implements Serializable {
         this.password = password;
         this.location = location;
         this.token = token;
-        this.updated = updated;
+        this.updated = System.currentTimeMillis();
     }
 
-    public Account() {
-        updated = System.currentTimeMillis();
-    }
+
 
     public String getEmail() {
                 return email;
@@ -97,11 +95,11 @@ public class Account implements Serializable {
         this.location = location;
     }
 
-    public char[] getToken() {
+    public String getToken() {
         return token;
     }
 
-    public void setToken(char[] token) {
+    public void setToken(String token) {
         this.token = token;
     }
 
@@ -128,8 +126,4 @@ public class Account implements Serializable {
         return email.hashCode();
     }
 
-    @Override
-    public String toString() {
-        return email;
-    }
 }
