@@ -6,7 +6,6 @@ import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Reference;
 
 import java.io.Serializable;
-import java.sql.Time;
 
 
 @Entity
