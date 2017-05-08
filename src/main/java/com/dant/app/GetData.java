@@ -40,7 +40,7 @@ public abstract class GetData {
     }
 
     public static void main(String[] args) {
-        GetData.userInfo("toto12345");
+        GetData.userInfo("591094ee2ff84c09f85101ee");
     }
 
 }
