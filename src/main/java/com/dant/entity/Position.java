@@ -1,5 +1,8 @@
 package com.dant.entity;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -7,18 +10,17 @@ import org.mongodb.morphia.annotations.Id;
 /**
  * Created by OPERMAN Timoty on 04/05/2017.
  */
-@Entity
 public class Position {
-    @Id
-    private ObjectId id;
 
     private double latitude;
     private double longitude;
 
     public Position(double latitude, double longitude) {
-        this.id = new ObjectId();
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    public Position() {
     }
 
     public double getLatitude() {
@@ -37,11 +39,22 @@ public class Position {
         this.longitude = longitude;
     }
 
-    public ObjectId getId() {
-        return id;
+    @Override
+    public String toString() {
+        return "Position{" +
+                "latitude=" + latitude +
+                ", longitude=" + longitude +
+                '}';
     }
 
-    public void setId(ObjectId id) {
-        this.id = id;
+    public JsonElement toJSON() {
+        JsonObject result = new JsonObject();
+        result.add("latitude", new JsonPrimitive(this.getLatitude()));
+        result.add("longitude", new JsonPrimitive(this.getLongitude()));
+        return result;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new Position(3.56,5.65).toJSON());
     }
 }

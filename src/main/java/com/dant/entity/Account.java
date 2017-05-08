@@ -1,5 +1,6 @@
 package com.dant.entity;
 
+import com.google.gson.JsonElement;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -11,15 +12,13 @@ import java.io.Serializable;
 @Entity
 public class Account implements Serializable {
     @Id
-    private ObjectId id;
+    private String id;
 
     private String firstName;
     private String lastName;
     private String phoneNumber;
     private String email;
     private String password;
-
-    @Reference
     private Position location;
     private String token;
 
@@ -36,21 +35,22 @@ public class Account implements Serializable {
         this.updated = System.currentTimeMillis();
     }
 
-
+    public Account() {
+    }
 
     public String getEmail() {
-                return email;
+        return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -68,6 +68,10 @@ public class Account implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 
     public String getPhoneNumber() {
@@ -125,4 +129,18 @@ public class Account implements Serializable {
         return email.hashCode();
     }
 
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", location=" + location +
+                ", token='" + token + '\'' +
+                ", updated=" + updated +
+                '}';
+    }
 }
