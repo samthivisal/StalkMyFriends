@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
  * Created by OPERMAN Timoty on 04/05/2017.
  */
 
-@Path("/users/{user}")
+@Path("/{user}")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class TestUser {

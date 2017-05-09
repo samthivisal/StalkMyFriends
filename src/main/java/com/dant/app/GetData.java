@@ -1,46 +1,89 @@
 package com.dant.app;
 
+import com.dant.Constant;
 import com.dant.entity.Account;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.mongodb.MongoClient;
-import com.mongodb.util.JSON;
-import jdk.nashorn.internal.runtime.JSONFunctions;
-import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
+import org.mongodb.morphia.query.FindOptions;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.Writer;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by OPERMAN Timoty on 06/05/2017.
  */
-public abstract class GetData {
+public class GetData {
+    public static MongoClient clientMongo;
+    public static Datastore datastore;
 
-    public static File userInfo(String token) {
-        File userInfo = new File("Output.json");
-        MongoClient m = new MongoClient("127.0.0.1", 27017);
-        Datastore datastore = new Morphia().map(Account.class).createDatastore(m, "Usertest");
+    public GetData() {
+        clientMongo = new MongoClient(Constant.LOCALHOST.getAdress(), Constant.LOCALHOST.getPort());
+        datastore = new Morphia().map(Account.class).createDatastore(clientMongo, Constant.LOCALHOST.getDbName());
+    }
+
+    public File accountInfoByToken(String token) {
         Account result = datastore.find(Account.class).field("token").equal(token).get();
-        if (result != null) {
-            System.out.println(result);
-            try (Writer writer = new FileWriter(userInfo)) {
-                Gson gson = new GsonBuilder().create();
-                gson.toJson(result, writer);
-            } catch (Exception e) {
-                System.out.println("could make writter");
-            }
+        if(result ==null)
+            return null;
+        try {
+            return result.toJSON();
+        }catch (Exception e){
+            e.printStackTrace(System.out);
+            return null;
         }
-        else System.out.println("fail");
 
-        return userInfo;
+    }
+    public File accountInfoByFistname(String firstName) {
+        ArrayList<Account> result = new
+                ArrayList<>(datastore.find(Account.class).field("firstName").equal("KK").asList());
+        if(result ==null)
+            return null;
+        try {
+            return Account.listToJSON(result);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+    public File accountInfoByLastname(String lastName) {
+        ArrayList<Account> result = new
+                ArrayList<>(datastore.find(Account.class).field("lastName").equal("KK").asList());
+        if(result ==null)
+            return null;
+        try {
+            return Account.listToJSON(result);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+    public File friendlist(String token) {
+        Account result = datastore.find(Account.class).field("token").equal(token).get();
+        if(result ==null)
+            return null;
+        try {
+            return result.toJSON();
+        }catch (Exception e){
+            e.printStackTrace(System.out);
+            return null;
+        }
+
     }
 
     public static void main(String[] args) {
-        GetData.userInfo("591094ee2ff84c09f85101ee");
+        GetData gd = new GetData();
+//        gd.accountInfoByToken("591189fa2ff84c31c0917700");
+        gd.accountInfoByFistname("k");
+//        File output = new File("cache/AccountOutput.json");
+//        System.out.println(output.getAbsolutePath());
+//        File output2 = new File("cache/AccountListOutput.json");
     }
 
 }
