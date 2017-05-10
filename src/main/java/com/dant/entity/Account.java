@@ -1,25 +1,16 @@
 package com.dant.entity;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.google.gson.annotations.Expose;
-import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Reference;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.Serializable;
-import java.io.Writer;
-import java.util.List;
 
 
 @Entity
 public class Account implements Serializable {
+
     @Id
-    @Expose
     private String id;
 
     @Expose
@@ -147,43 +138,6 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + "********" + '\'' +
-                ", location=" + location +
-                ", token='" + token + '\'' +
-                ", updated=" + updated +
-                '}';
+        return email;
     }
-
-    public File toJSON() {
-        File output = new File("cache/AccountOutput.json");
-        try (Writer writer = new FileWriter(output)) {
-            System.out.println("list to Json ok");
-            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-            gson.toJson(this, writer);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        return output;
-    }
-
-    public static File listToJSON(List<Account> listAccount){
-        File output = new File("cache/AccountListOutput.json");
-        try (Writer writer = new FileWriter(output)) {
-            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-            gson.toJson(listAccount, writer);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        return output;
-    }
-
-
 }
