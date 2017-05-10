@@ -27,88 +27,31 @@ public class GetData {
         datastore = new Morphia().map(Account.class).createDatastore(clientMongo, Constant.LOCALHOST.getDbName());
     }
 
-    public File accountInfoByToken(String token) {
+    public Account accountInfoByToken(String token) {
         Account result = datastore.find(Account.class).field("token").equal(token).get();
-        if (result == null)
-            return null;
-        try {
-            return result.toJSON();
-        } catch (Exception e) {
-            e.printStackTrace(System.out);
-            return null;
-        }
-
+        return result;
     }
 
-    public File accountInfoByFistname(String firstName) {
+    public List<Account> accountInfoByFistname(String firstName) {
         ArrayList<Account> result = new
                 ArrayList<>(datastore.find(Account.class).field("firstName").equal(firstName).asList());
-        if (result == null)
-            return null;
-        try {
-            return Account.listToJSON(result);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
+            return result;
     }
 
-    public File accountInfoByLastname(String lastName) {
+    public List<Account> accountInfoByLastname(String lastName) {
         ArrayList<Account> result = new
                 ArrayList<>(datastore.find(Account.class).field("lastName").equal(lastName).asList());
-        if (result == null)
-            return null;
-        try {
-            return Account.listToJSON(result);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
+            return result;
     }
 
-    public File accountInfoByPhonenumber(String phoneNumber) {
+    public Account accountInfoByPhonenumber(String phoneNumber) {
         Account result = datastore.find(Account.class).field("phoneNumber").equal(phoneNumber).get();
-        if (result == null)
-            return null;
-        try {
-            return result.toJSON();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
+            return result;
     }
 
-    public File accountConnection(String phoneNumber, String password) {
-        System.out.println("launch");
+    public Account accountConnection(String phoneNumber, String password) {
         Account result = datastore.find(Account.class).field("phoneNumber").equal(phoneNumber).get();
-        if (result == null)
-            return null;
-        if (result.getPassword().equals(password)) {
-            System.out.println("good");
-            try {
-                return result.toJSON();
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-        } else return null;
-
-    }
-
-    public File friendlist(String token) {
-        Account result = datastore.find(Account.class).field("token").equal(token).get();
-        if (result == null)
-            return null;
-        try {
-            return result.toJSON();
-        } catch (Exception e) {
-            e.printStackTrace(System.out);
-            return null;
-        }
-
+        return result;
     }
 
     public static void main(String[] args) {
