@@ -28,49 +28,80 @@ public class GetData {
 
     public File accountInfoByToken(String token) {
         Account result = datastore.find(Account.class).field("token").equal(token).get();
-        if(result ==null)
+        if (result == null)
             return null;
         try {
             return result.toJSON();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace(System.out);
             return null;
         }
 
     }
+
     public File accountInfoByFistname(String firstName) {
         ArrayList<Account> result = new
-                ArrayList<>(datastore.find(Account.class).field("firstName").equal("KK").asList());
-        if(result ==null)
+                ArrayList<>(datastore.find(Account.class).field("firstName").equal(firstName).asList());
+        if (result == null)
             return null;
         try {
             return Account.listToJSON(result);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
 
     }
+
     public File accountInfoByLastname(String lastName) {
         ArrayList<Account> result = new
-                ArrayList<>(datastore.find(Account.class).field("lastName").equal("KK").asList());
-        if(result ==null)
+                ArrayList<>(datastore.find(Account.class).field("lastName").equal(lastName).asList());
+        if (result == null)
             return null;
         try {
             return Account.listToJSON(result);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
 
     }
-    public File friendlist(String token) {
-        Account result = datastore.find(Account.class).field("token").equal(token).get();
-        if(result ==null)
+
+    public File accountInfoByPhonenumber(String phoneNumber) {
+        Account result = datastore.find(Account.class).field("phoneNumber").equal(phoneNumber).get();
+        if (result == null)
             return null;
         try {
             return result.toJSON();
-        }catch (Exception e){
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public File accountConnection(String phoneNumber, String password) {
+        Account result = datastore.find(Account.class).field("phoneNumber").equal(phoneNumber).get();
+        if (result == null)
+            return null;
+        if (result.getPassword().equals(password)) {
+            try {
+                return result.toJSON();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        } else return null;
+
+    }
+
+    public File friendlist(String token) {
+        Account result = datastore.find(Account.class).field("token").equal(token).get();
+        if (result == null)
+            return null;
+        try {
+            return result.toJSON();
+        } catch (Exception e) {
             e.printStackTrace(System.out);
             return null;
         }
