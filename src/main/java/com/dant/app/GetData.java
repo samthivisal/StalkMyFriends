@@ -5,6 +5,7 @@ import com.dant.entity.Account;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mongodb.MongoClient;
+import org.apache.commons.io.FileUtils;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.query.FindOptions;
@@ -81,10 +82,12 @@ public class GetData {
     }
 
     public File accountConnection(String phoneNumber, String password) {
+        System.out.println("launch");
         Account result = datastore.find(Account.class).field("phoneNumber").equal(phoneNumber).get();
         if (result == null)
             return null;
         if (result.getPassword().equals(password)) {
+            System.out.println("good");
             try {
                 return result.toJSON();
             } catch (Exception e) {
@@ -111,10 +114,15 @@ public class GetData {
     public static void main(String[] args) {
         GetData gd = new GetData();
 //        gd.accountInfoByToken("591189fa2ff84c31c0917700");
-        gd.accountInfoByFistname("k");
+//        gd.accountInfoByFistname("k");
 //        File output = new File("cache/AccountOutput.json");
 //        System.out.println(output.getAbsolutePath());
 //        File output2 = new File("cache/AccountListOutput.json");
+//        try {
+//            System.out.println(FileUtils.readFileToString(new GetData().accountConnection("1234567890","test"),"UTF-8"));
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
     }
 
 }

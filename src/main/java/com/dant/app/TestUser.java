@@ -4,6 +4,7 @@ import com.dant.Constant;
 import com.dant.DAO.AccountDAO;
 import com.dant.entity.Account;
 import com.mongodb.MongoClient;
+import org.apache.commons.io.FileUtils;
 import org.mongodb.morphia.Morphia;
 
 import javax.ws.rs.*;
@@ -18,31 +19,33 @@ import java.io.File;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class TestUser {
-    MongoClient mongo ;
-    Morphia morphia ;
-    AccountDAO dao ;
 
-    public TestUser() {
-         this.mongo =new MongoClient(Constant.LOCALHOST.getAdress(),Constant.LOCALHOST.getPort());
-         this.morphia = new Morphia();
-         this.dao = new AccountDAO(mongo,morphia,Constant.LOCALHOST.getDbName());
+    @POST
+    @Path("/connect/user={phone}&password={password}")
+    @Produces("text/html")
+    public String connect(@PathParam("phone") String phone, @PathParam("password") String password) {
+//        try {
+//            return FileUtils.readFileToString(new GetData().accountConnection(phone,password),"UTF-8");
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+        return "lololol";
     }
 
     @GET
     @Path("/{user}/status")
-    @Produces("text/xml")
+    @Produces("text/html")
     public String getUser(@PathParam("user") String userName) {
         if (userName.equals("admin")) {
-            return dao.getAccountByFirstName("K").toString();
+            return "yolo" ;
         }
-        return "hello world";
+        try {
+            return FileUtils.readFileToString(new GetData().accountInfoByFistname(userName),"UTF-8");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "fail";
     }
-    @POST
-    @Path("/connect/user={phone}&password={password}")
-    @Produces("text/json")
-    public File connect(@PathParam("phone") String phone, @PathParam("password") String password) {
-        return new GetData().accountConnection(phone,password);
 
-    }
 
 }

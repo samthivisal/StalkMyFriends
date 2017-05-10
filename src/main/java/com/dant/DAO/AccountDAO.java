@@ -19,7 +19,7 @@ import java.util.List;
  * Created by OPERMAN Timoty on 06/05/2017.
  */
 public class AccountDAO extends BasicDAO<Account, String> {
-
+    //TODO: gestion de la base de donnée
 
     public AccountDAO(MongoClient mongoClient, Morphia morphia, String dbName) {
         super(mongoClient, morphia, dbName);
@@ -30,8 +30,8 @@ public class AccountDAO extends BasicDAO<Account, String> {
         String dbName = Constant.LOCALHOST.getDbName();
         Datastore datastore = new Morphia().map(Account.class).createDatastore(mongo,dbName);
         mongo.dropDatabase(dbName);
-        Account test = new Account("K","2000","1234567890","k200@gmail.com","test",new Position(123.12,456.98),new ObjectId().toString());
-        Account test1 = new Account("KK","2001","1234567890","k200@gmail.com","test",new Position(123.12,456.98),new ObjectId().toString());
+        Account test = new Account("K","2000","1234567","k200@gmail.com","test",new Position(123.12,456.98),new ObjectId().toString());
+        Account test1 = new Account("KK","2001","12345678","k200@gmail.com","test",new Position(123.12,456.98),new ObjectId().toString());
         Account test2 = new Account("KK","2002","1234567890","k200@gmail.com","test",new Position(123.12,456.98),new ObjectId().toString());
         datastore.save(test);
         datastore.save(test1);

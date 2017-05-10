@@ -176,7 +176,6 @@ public class Account implements Serializable {
     public static File listToJSON(List<Account> listAccount){
         File output = new File("cache/AccountListOutput.json");
         try (Writer writer = new FileWriter(output)) {
-            System.out.println("list to Json ok");
             Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
             gson.toJson(listAccount, writer);
         } catch (Exception e) {
