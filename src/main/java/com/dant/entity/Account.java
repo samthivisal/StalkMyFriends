@@ -1,6 +1,8 @@
 package com.dant.entity;
 
+import com.dant.entity.dto.AccountDTO;
 import com.google.gson.annotations.Expose;
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
@@ -31,6 +33,16 @@ public class Account implements Serializable {
     @Expose
     private long updated;
 
+    public Account(AccountDTO accountDTO){
+        this.firstName = accountDTO.getFirstName();
+        this.lastName = accountDTO.getLastName();
+        this.phoneNumber = accountDTO.getPhoneNumber();
+        this.email = accountDTO.getEmail();
+        this.password = accountDTO.getPassword();
+        this.location = new Position();
+        this.token = new ObjectId().toString();
+        this.updated = System.currentTimeMillis();
+    }
     public Account(String firstName, String lastName, String phoneNumber, String email, String password, Position location, String token) {
         this.firstName = firstName;
         this.lastName = lastName;

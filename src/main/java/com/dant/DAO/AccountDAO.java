@@ -1,6 +1,7 @@
 package com.dant.dao;
 
 import com.dant.entity.Account;
+import com.dant.entity.dto.AccountDTO;
 import org.mongodb.morphia.Datastore;
 
 import javax.ws.rs.ForbiddenException;
@@ -23,4 +24,14 @@ public class AccountDAO {
         }
         return account;
     }
+
+    public Account create(AccountDTO accountDTO) {
+        Account account = new Account(accountDTO);
+        if (account == null) {
+            throw new NotFoundException();
+        }
+        datastore.save(account);
+        return account;
+    }
+
 }
