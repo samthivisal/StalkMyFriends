@@ -1,15 +1,13 @@
 package com.dant.dao;
 
 import com.dant.entity.Account;
+import com.dant.entity.Position;
 import com.dant.entity.dto.AccountDTO;
 import org.mongodb.morphia.Datastore;
 
 import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.NotFoundException;
 
-/**
- * Created by OPERMAN Timoty on 06/05/2017.
- */
 public class AccountDAO {
 
     private final Datastore datastore = DatastoreInit.getDatastore();
@@ -27,11 +25,21 @@ public class AccountDAO {
 
     public Account create(AccountDTO accountDTO) {
         Account account = new Account(accountDTO);
-        if (account == null) {
-            throw new NotFoundException();
-        }
         datastore.save(account);
         return account;
+    }
+
+    public void testInitDatabase(){
+        Account test = new Account("first","last","1234567890","email@mail.com","pwd",new Position(123.456,45.102));
+        Account test1 = new Account("first1","last1","1234567890","email@mail.com","pwd",new Position(123.456,45.102));
+        Account test2 = new Account("first3","last2","1234567890","email@mail.com","pwd",new Position(123.456,45.102));
+        datastore.save(test);
+        datastore.save(test1);
+        datastore.save(test2);
+    }
+
+    public static void main(String[] args) {
+        new AccountDAO().testInitDatabase();
     }
 
 }

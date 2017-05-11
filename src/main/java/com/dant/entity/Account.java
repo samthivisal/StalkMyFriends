@@ -43,14 +43,14 @@ public class Account implements Serializable {
         this.token = new ObjectId().toString();
         this.updated = System.currentTimeMillis();
     }
-    public Account(String firstName, String lastName, String phoneNumber, String email, String password, Position location, String token) {
+    public Account(String firstName, String lastName, String phoneNumber, String email, String password, Position location) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.password = password;
         this.location = location;
-        this.token = token;
+        this.token = new ObjectId().toString();
         this.updated = System.currentTimeMillis();
     }
 
