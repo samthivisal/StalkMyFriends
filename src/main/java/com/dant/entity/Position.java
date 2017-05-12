@@ -45,20 +45,7 @@ public class Position {
 
     @Override
     public String toString() {
-        return "Position{" +
-                "latitude=" + latitude +
-                ", longitude=" + longitude +
-                '}';
+        return "Position[" + latitude +',' + longitude +']';
     }
 
-    public File toJSON() {
-        File output = new File("Position.json");
-        try (Writer writer = new FileWriter(output)) {
-            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-            gson.toJson(this, writer);
-        } catch (Exception e) {
-            System.out.println("could make writter");
-        }
-        return output;
-    }
 }

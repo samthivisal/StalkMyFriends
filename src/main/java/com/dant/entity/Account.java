@@ -34,10 +34,10 @@ public class Account implements Serializable {
     private long updated;
 
     public Account(AccountDTO accountDTO){
-        this.firstName = accountDTO.getFirstName();
-        this.lastName = accountDTO.getLastName();
-        this.phoneNumber = accountDTO.getPhoneNumber();
-        this.email = accountDTO.getEmail();
+        this.firstName = accountDTO.firstName;
+        this.lastName = accountDTO.lastName;
+        this.phoneNumber = accountDTO.phoneNumber;
+        this.email = accountDTO.email;
         this.password = accountDTO.getPassword();
         this.location = new Position();
         this.token = new ObjectId().toString();
