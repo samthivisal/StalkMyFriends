@@ -2,11 +2,15 @@ package com.dant.entity;
 
 import com.dant.entity.dto.AccountDTO;
 import com.google.gson.annotations.Expose;
+import com.mongodb.DBRef;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Reference;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -19,6 +23,7 @@ public class Account implements Serializable {
     private String firstName;
     @Expose
     private String lastName;
+    private String fullName;
     @Expose
     private String phoneNumber;
     @Expose
@@ -33,9 +38,14 @@ public class Account implements Serializable {
     @Expose
     private long updated;
 
+    @Expose
+    @Reference
+    private List<Account> friends;
+
     public Account(AccountDTO accountDTO){
         this.firstName = accountDTO.firstName;
         this.lastName = accountDTO.lastName;
+        this.fullName = firstName + ' ' +lastName;
         this.phoneNumber = accountDTO.phoneNumber;
         this.email = accountDTO.email;
         this.password = accountDTO.getPassword();
@@ -46,12 +56,14 @@ public class Account implements Serializable {
     public Account(String firstName, String lastName, String phoneNumber, String email, String password, Position location) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.fullName = firstName + ' ' +lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.password = password;
         this.location = location;
         this.token = new ObjectId().toString();
         this.updated = System.currentTimeMillis();
+        this.friends = new ArrayList<Account>();
     }
 
     public Account() {
@@ -131,6 +143,14 @@ public class Account implements Serializable {
 
     public void setUpdated(long updated) {
         this.updated = updated;
+    }
+
+    public List<Account> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<Account> friends) {
+        this.friends = friends;
     }
 
     @Override
