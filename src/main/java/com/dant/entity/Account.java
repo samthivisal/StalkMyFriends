@@ -2,14 +2,12 @@ package com.dant.entity;
 
 import com.dant.entity.dto.AccountDTO;
 import com.google.gson.annotations.Expose;
-import com.mongodb.DBRef;
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Reference;
+import org.mongodb.morphia.annotations.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -25,6 +23,7 @@ public class Account implements Serializable {
     private String lastName;
     private String fullName;
     @Expose
+    @Indexed(options = @IndexOptions(unique = true))
     private String phoneNumber;
     @Expose
     private String email;
@@ -36,7 +35,7 @@ public class Account implements Serializable {
     private String token;
 
     @Expose
-    private long updated;
+    private Date updated;
 
     @Expose
     @Reference
@@ -51,7 +50,7 @@ public class Account implements Serializable {
         this.password = accountDTO.getPassword();
         this.location = new Position();
         this.token = new ObjectId().toString();
-        this.updated = System.currentTimeMillis();
+        this.updated = new Date();
     }
     public Account(String firstName, String lastName, String phoneNumber, String email, String password, Position location) {
         this.firstName = firstName;
@@ -62,7 +61,7 @@ public class Account implements Serializable {
         this.password = password;
         this.location = location;
         this.token = new ObjectId().toString();
-        this.updated = System.currentTimeMillis();
+        this.updated = new Date();
         this.friends = new ArrayList<Account>();
     }
 
@@ -137,11 +136,11 @@ public class Account implements Serializable {
         this.token = token;
     }
 
-    public long getUpdated() {
+    public Date getUpdated() {
         return updated;
     }
 
-    public void setUpdated(long updated) {
+    public void setUpdated(Date updated) {
         this.updated = updated;
     }
 

@@ -11,6 +11,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * Created by OPERMAN Timoty on 04/05/2017.
@@ -35,14 +36,16 @@ public class AccountController {
 
     @POST
     @Path("/delete")
-    public void delete(AccountLoginDTO accountLoginDTO) {
+    public Response delete(AccountLoginDTO accountLoginDTO) {
         new AccountDAO().delete(accountLoginDTO.phone,accountLoginDTO.password);
+        return Response.status(200).build();
     }
 
     @POST
     @Path("/updateLocation")
-    public void updateLocation(PositionDTO positionDTO) {
+    public Response updateLocation(PositionDTO positionDTO) {
         new AccountDAO().updateLocation(positionDTO.token,positionDTO.location);
+        return Response.status(200).build();
     }
 
 
