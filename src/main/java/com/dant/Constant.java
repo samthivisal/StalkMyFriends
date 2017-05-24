@@ -4,7 +4,8 @@ package com.dant;
  * Created by OPERMAN Timoty on 06/05/2017.
  */
 public enum Constant {
-    LOCALHOST ("127.0.0.1" ,27017,"Usertest");
+    //LOCALHOST ("127.0.0.1" ,27017,"Usertest");
+    LOCALHOST ("52.232.34.116" ,27017,"Usertest");
 
     private final String Adress;
     private final int port;
