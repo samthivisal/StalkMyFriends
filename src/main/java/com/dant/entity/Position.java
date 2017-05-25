@@ -1,18 +1,12 @@
 package com.dant.entity;
 
-import com.google.gson.*;
 import com.google.gson.annotations.Expose;
-import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.Writer;
+import org.mongodb.morphia.annotations.Embedded;
 
 /**
  * Created by OPERMAN Timoty on 04/05/2017.
  */
+@Embedded
 public class Position {
     @Expose
     private double latitude;
@@ -45,20 +39,7 @@ public class Position {
 
     @Override
     public String toString() {
-        return "Position{" +
-                "latitude=" + latitude +
-                ", longitude=" + longitude +
-                '}';
+        return "Position[" + latitude +',' + longitude +']';
     }
 
-    public File toJSON() {
-        File output = new File("Position.json");
-        try (Writer writer = new FileWriter(output)) {
-            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-            gson.toJson(this, writer);
-        } catch (Exception e) {
-            System.out.println("could make writter");
-        }
-        return output;
-    }
 }

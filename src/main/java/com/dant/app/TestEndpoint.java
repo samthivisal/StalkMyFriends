@@ -33,7 +33,6 @@ public class TestEndpoint {
     @Path("/entity")
     public Account getAccount(Account account) {
         System.out.println("Received account " + account);
-        account.setUpdated(System.currentTimeMillis());
         return account;
     }
 
