@@ -1,10 +1,14 @@
 package com.dant.entity;
 
+import com.dant.entity.dto.AccountDTO;
 import com.google.gson.annotations.Expose;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -17,7 +21,9 @@ public class Account implements Serializable {
     private String firstName;
     @Expose
     private String lastName;
+    private String fullName;
     @Expose
+    @Indexed(options = @IndexOptions(unique = true))
     private String phoneNumber;
     @Expose
     private String email;
@@ -29,17 +35,34 @@ public class Account implements Serializable {
     private String token;
 
     @Expose
-    private long updated;
+    private Date updated;
 
-    public Account(String firstName, String lastName, String phoneNumber, String email, String password, Position location, String token) {
+    @Expose
+    @Reference
+    private List<Account> friends;
+
+    public Account(AccountDTO accountDTO){
+        this.firstName = accountDTO.firstName;
+        this.lastName = accountDTO.lastName;
+        this.fullName = firstName + ' ' +lastName;
+        this.phoneNumber = accountDTO.phoneNumber;
+        this.email = accountDTO.email;
+        this.password = accountDTO.getPassword();
+        this.location = new Position();
+        this.token = new ObjectId().toString();
+        this.updated = new Date();
+    }
+    public Account(String firstName, String lastName, String phoneNumber, String email, String password, Position location) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.fullName = firstName + ' ' +lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.password = password;
         this.location = location;
-        this.token = token;
-        this.updated = System.currentTimeMillis();
+        this.token = new ObjectId().toString();
+        this.updated = new Date();
+        this.friends = new ArrayList<Account>();
     }
 
     public Account() {
@@ -113,12 +136,20 @@ public class Account implements Serializable {
         this.token = token;
     }
 
-    public long getUpdated() {
+    public Date getUpdated() {
         return updated;
     }
 
-    public void setUpdated(long updated) {
+    public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+
+    public List<Account> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<Account> friends) {
+        this.friends = friends;
     }
 
     @Override
