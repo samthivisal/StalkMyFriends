@@ -24,8 +24,7 @@ public class AccountController {
 
     @POST
     @Path("/connect")
-    @Produces(MediaType.TEXT_HTML)
-    public String connect(AccountLoginDTO accountDTO) {
+    public Account connect(AccountLoginDTO accountDTO) {
         return new AccountDAO().connection(accountDTO.phone, accountDTO.password);
     }
 
