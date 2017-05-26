@@ -86,12 +86,27 @@ public class AccountDAO {
         datastore.save(test2);
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         AccountDAO test = new AccountDAO();
 //        test.testInitDatabase();
         test.updateLocation("59187c3c2f8b002154d905df",new Position(123.456,321.0));
 //        System.out.println(test.findUserByName("first last"));
-    }
 
+    }*/
+
+    /*public static void main(String... args) {
+            given()
+                    .contentType("application/json")
+                    .body("{" +
+                            " \"phoneNumber\": \"0674942405\"," +
+                            " \"firstName\": \"olivier\"," +
+                            " \"lastName\": \"bob\"," +
+                            " \"email\": \"olivier.pitton@kubity.com\"," +
+                            " \"password\": \"salut\"" +
+                            "}")
+                    .log().all()
+                    .post("http://52.232.34.116:8080/a/connect").then().log().all();
+    }
+*/
 
 }
