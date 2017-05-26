@@ -29,9 +29,10 @@ public class AccountDAO {
         if (!account.getPassword().equals(password)) {
             throw new ForbiddenException();
         }
+        /*
         Key<Account> key = datastore.find(Account.class).field("token").equal(account.getToken()).getKey();
         UpdateOperations<Account> setUpdate = datastore.createUpdateOperations(Account.class).set("updated", new Date());
-        datastore.update(key, setUpdate);
+        datastore.update(key, setUpdate);*/
         return account;
     }
 
