@@ -22,16 +22,21 @@ public class AccountDAO {
     private final Datastore datastore = DatastoreInit.getDatastore();
 
     public Account connection(String phoneNumber, String password) {
-        Account account = datastore.find(Account.class).field("phoneNumber").equal(phoneNumber).get();
+        Account account = datastore.createQuery(Account.class).filter("phoneNumber", phoneNumber).get();
+        //Account account = datastore.find(Account.class).field("phoneNumber").equal(phoneNumber).get();
         if (account == null) {
+            System.out.println("Pas de compte");
             throw new NotFoundException();
         }
         if (!account.getPassword().equals(password)) {
+            System.out.println("Pas bon mdp");
             throw new ForbiddenException();
         }
+        /*
         Key<Account> key = datastore.find(Account.class).field("token").equal(account.getToken()).getKey();
         UpdateOperations<Account> setUpdate = datastore.createUpdateOperations(Account.class).set("updated", new Date());
-        datastore.update(key, setUpdate);
+        datastore.update(key, setUpdate);*/
+        System.out.println("ok! Hooray!");
         return account;
     }
 
