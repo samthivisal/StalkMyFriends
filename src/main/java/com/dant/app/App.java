@@ -5,6 +5,7 @@ import com.dant.exception.ForbiddenExceptionMapper;
 import com.dant.exception.NotFoundExceptionMapper;
 import com.dant.exception.RuntimeExceptionMapper;
 import com.dant.filter.GsonProvider;
+import com.dant.filter.LogFilter;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -29,6 +30,7 @@ public class App extends Application {
 	public Set<Class<?>> getClasses() {
 		Set<Class<?>> sets = new HashSet<>();
 		sets.add(GsonProvider.class);
+		sets.add(LogFilter.class);
 		sets.add(RuntimeExceptionMapper.class);
 		sets.add(NotFoundExceptionMapper.class);
 		sets.add(ForbiddenExceptionMapper.class);

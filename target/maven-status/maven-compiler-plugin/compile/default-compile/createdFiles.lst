@@ -9,6 +9,7 @@ com\dant\entity\dto\AccountDTO.class
 com\dant\dao\DatastoreInit$Init.class
 com\dant\exception\RuntimeExceptionMapper.class
 com\dant\app\App.class
+com\dant\filter\LogFilter.class
 com\dant\dao\AccountDAO.class
 com\dant\app\TestEndpoint.class
 com\dant\dao\DatastoreInit.class
