@@ -3,6 +3,7 @@ package com.dant.dao;
 import com.dant.entity.Account;
 import com.dant.entity.Position;
 import com.dant.entity.dto.AccountDTO;
+import org.bson.types.ObjectId;
 import com.mongodb.operation.OperationExecutor;
 import com.mongodb.operation.UpdateOperation;
 import org.mongodb.morphia.Datastore;
@@ -21,7 +22,7 @@ public class AccountDAO {
 
     private final Datastore datastore = DatastoreInit.getDatastore();
 
-    public Account connection(String phoneNumber, String password) {
+    public AccountDTO connection(String phoneNumber, String password) {
         Account account = datastore.createQuery(Account.class).filter("phoneNumber", phoneNumber).get();
         //Account account = datastore.find(Account.class).field("phoneNumber").equal(phoneNumber).get();
         if (account == null) {
@@ -37,13 +38,16 @@ public class AccountDAO {
         UpdateOperations<Account> setUpdate = datastore.createUpdateOperations(Account.class).set("updated", new Date());
         datastore.update(key, setUpdate);*/
         System.out.println("ok! Hooray!");
-        return account;
+        return new AccountDTO(account);
     }
 
-    public Account create(AccountDTO accountDTO) {
-        Account account = new Account(accountDTO);
+    public boolean create(Account account) {
+        if(datastore.find(Account.class).field("phoneNumber").equal(account.getPhoneNumber()).get() != null) {
+            return false;
+        }
+        account.setToken(new ObjectId().toString());
         datastore.save(account);
-        return account;
+        return true;
     }
 
     public void delete(String phoneNumber, String password) {
@@ -83,9 +87,9 @@ public class AccountDAO {
 
     public void testInitDatabase() {
         datastore.getDB().dropDatabase();
-        Account test = new Account("first", "last", "1234567890", "email@mail.com", "pwd", new Position(123.456, 45.102));
-        Account test1 = new Account("first1", "LAST1", "1234567890", "email@mail.com1", "pwd", new Position(123.456, 45.102));
-        Account test2 = new Account("first2", "last2", "1234567890", "email@mail.com2", "pwd", new Position(123.456, 45.102));
+        Account test = new Account("first", "last", "1234567890", "email@mail.com", "pwd");
+        Account test1 = new Account("first1", "LAST1", "1234567890", "email@mail.com1", "pwd");
+        Account test2 = new Account("first2", "last2", "1234567890", "email@mail.com2", "pwd");
         datastore.save(test);
         datastore.save(test1);
         datastore.save(test2);

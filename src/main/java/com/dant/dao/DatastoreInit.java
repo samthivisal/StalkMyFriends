@@ -27,7 +27,8 @@ class DatastoreInit {
         private static final Datastore datastore = init();
 
         private static Datastore init() {
-            MongoClient clientMongo = new MongoClient(Constant.LOCALHOST.getAdress(), Constant.LOCALHOST.getPort());
+            //MongoClient clientMongo = new MongoClient(Constant.LOCALHOST.getAdress(), Constant.LOCALHOST.getPort());
+            MongoClient clientMongo = new MongoClient();
             Set<Class> sets = new HashSet<>(1);
             sets.add(Account.class);
             sets.add(Position.class);
