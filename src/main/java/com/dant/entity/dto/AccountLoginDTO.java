@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class AccountLoginDTO implements Serializable {
 
-    public String phone;
+    public String phoneNumber;
     public String password;
 
 }

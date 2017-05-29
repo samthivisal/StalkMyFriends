@@ -15,19 +15,20 @@ import java.util.List;
 public class Account implements Serializable {
 
     @Id
-    private String id;
+    private ObjectId id;
 
     @Expose
     private String firstName;
+
     @Expose
     private String lastName;
-    private String fullName;
+
     @Expose
     @Indexed(options = @IndexOptions(unique = true))
     private String phoneNumber;
     @Expose
     private String email;
-
+    @Expose
     private String password;
     @Expose
     private Position location;
@@ -41,25 +42,23 @@ public class Account implements Serializable {
     @Reference
     private List<Account> friends;
 
-    public Account(AccountDTO accountDTO){
+    /*public Account(AccountDTO accountDTO){
         this.firstName = accountDTO.firstName;
         this.lastName = accountDTO.lastName;
-        this.fullName = firstName + ' ' +lastName;
         this.phoneNumber = accountDTO.phoneNumber;
         this.email = accountDTO.email;
         this.password = accountDTO.getPassword();
         this.location = new Position();
         this.token = new ObjectId().toString();
         this.updated = new Date();
-    }
-    public Account(String firstName, String lastName, String phoneNumber, String email, String password, Position location) {
+    }*/
+    public Account(String firstName, String lastName, String phoneNumber, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.fullName = firstName + ' ' +lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.password = password;
-        this.location = location;
+        this.location = null;
         this.token = new ObjectId().toString();
         this.updated = new Date();
         this.friends = new ArrayList<Account>();
@@ -76,11 +75,11 @@ public class Account implements Serializable {
         this.email = email;
     }
 
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -169,6 +168,6 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        return email;
+        return phoneNumber + password + token;
     }
 }
