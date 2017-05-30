@@ -33,21 +33,29 @@ public class AccountDAO {
             System.out.println("Pas bon mdp");
             throw new ForbiddenException();
         }
-
-        Key<Account> key = datastore.find(Account.class).field("token").equal(account.getToken()).getKey();
-        UpdateOperations<Account> setUpdate = datastore.createUpdateOperations(Account.class).set("isConnected", new Date());
-        datastore.update(key, setUpdate);
+        account.connect(true);
+        datastore.save(account);
+        System.out.println(account.toString());
         System.out.println("ok! Hooray!");
         return new AccountDTO(account);
     }
 
     public AccountDTO create(Account account) {
         if(datastore.find(Account.class).field("phoneNumber").equal(account.getPhoneNumber()).get() != null) {
-            return null;
+            throw new ForbiddenException();
         }
         account.setToken(new ObjectId().toString());
+        account.connect(true);
         datastore.save(account);
+        System.out.println(account.toString());
         return new AccountDTO(account);
+    }
+
+    public void logOut(String phoneNumber){
+        Account account = datastore.find(Account.class).field("phoneNumber").equal(phoneNumber).get();
+        account.connect(false);
+        datastore.save(account);
+        System.out.println(account.toString());
     }
 
     public void delete(String phoneNumber, String password) {

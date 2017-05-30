@@ -18,12 +18,15 @@ public class AccountDTO implements Serializable {
     public String phoneNumber;
     @Expose
     public String token;
+    @Expose
+    public boolean isConnected;
 
     public AccountDTO(Account account){
         firstName = account.getFirstName();
         lastName = account.getLastName();
         phoneNumber = account.getPhoneNumber();
         token = account.getToken();
+        isConnected = account.isConnected();
     }
 
     public String getToken(){   return token;}

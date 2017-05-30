@@ -25,26 +25,20 @@ public class AccountController {
     @POST
     @Path("/connect")
     public AccountDTO connect(Account account) {
-        System.out.println(account.getPhoneNumber());
-        System.out.println(account.getPassword());
-        return new AccountDAO().connection(account.getPhoneNumber(), account.getPassword());
+         return new AccountDAO().connection(account.getPhoneNumber(), account.getPassword());
     }
 
     @POST
     @Path("/create")
     public AccountDTO create(Account account) {
-        System.out.println(account.toString());
         return new AccountDAO().create(account);
     }
 
     @POST
-    @Path("/test")
-    public AccountDTO test(Account account) {
-        System.out.println("phone : " +account.getPhoneNumber());
-        System.out.println("pwd : " +account.getPassword());
-        System.out.println("token : " +account.getToken());
-        return new AccountDTO(account);
-        //return new AccountDTO(account.getPhoneNumber(), account.getPassword());
+    @Path("/logout")
+    public Response test(Account account) {
+        new AccountDAO().logOut(account.getPhoneNumber());
+        return Response.status(200).build();
     }
 
     @POST

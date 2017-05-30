@@ -174,6 +174,6 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        return phoneNumber + password + token;
+        return phoneNumber +"\n" + password +"\n" + token +"\n" +isConnected;
     }
 }
