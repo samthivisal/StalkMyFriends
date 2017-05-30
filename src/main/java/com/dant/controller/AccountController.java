@@ -32,8 +32,8 @@ public class AccountController {
 
     @POST
     @Path("/create")
-    public boolean create(Account account) {
-
+    public AccountDTO create(Account account) {
+        System.out.println(account.toString());
         return new AccountDAO().create(account);
     }
 

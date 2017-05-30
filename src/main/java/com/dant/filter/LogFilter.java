@@ -8,7 +8,7 @@ import javax.ws.rs.container.ContainerRequestContext;
         import java.util.logging.Logger;
 
 /**
- * Created by nguye on 25/05/2017.
+ * Created by nguyen on 25/05/2017.
  */
 public class LogFilter implements ContainerRequestFilter, ContainerResponseFilter {
 

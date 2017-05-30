@@ -23,8 +23,8 @@ public class AccountDAO {
     private final Datastore datastore = DatastoreInit.getDatastore();
 
     public AccountDTO connection(String phoneNumber, String password) {
-        Account account = datastore.createQuery(Account.class).filter("phoneNumber", phoneNumber).get();
-        //Account account = datastore.find(Account.class).field("phoneNumber").equal(phoneNumber).get();
+        //Account account = datastore.createQuery(Account.class).filter("phoneNumber", phoneNumber).get();
+        Account account = datastore.find(Account.class).field("phoneNumber").equal(phoneNumber).get();
         if (account == null) {
             System.out.println("Pas de compte");
             throw new NotFoundException();
@@ -33,21 +33,21 @@ public class AccountDAO {
             System.out.println("Pas bon mdp");
             throw new ForbiddenException();
         }
-        /*
+
         Key<Account> key = datastore.find(Account.class).field("token").equal(account.getToken()).getKey();
-        UpdateOperations<Account> setUpdate = datastore.createUpdateOperations(Account.class).set("updated", new Date());
-        datastore.update(key, setUpdate);*/
+        UpdateOperations<Account> setUpdate = datastore.createUpdateOperations(Account.class).set("isConnected", new Date());
+        datastore.update(key, setUpdate);
         System.out.println("ok! Hooray!");
         return new AccountDTO(account);
     }
 
-    public boolean create(Account account) {
+    public AccountDTO create(Account account) {
         if(datastore.find(Account.class).field("phoneNumber").equal(account.getPhoneNumber()).get() != null) {
-            return false;
+            return null;
         }
         account.setToken(new ObjectId().toString());
         datastore.save(account);
-        return true;
+        return new AccountDTO(account);
     }
 
     public void delete(String phoneNumber, String password) {

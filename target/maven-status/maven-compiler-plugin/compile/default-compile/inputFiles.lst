@@ -7,6 +7,7 @@ C:\Users\nguye\Documents\DANT\changes\StalkMyFriends\src\main\java\com\dant\enti
 C:\Users\nguye\Documents\DANT\changes\StalkMyFriends\src\main\java\com\dant\entity\Account.java
 C:\Users\nguye\Documents\DANT\changes\StalkMyFriends\src\main\java\com\dant\controller\AccountController.java
 C:\Users\nguye\Documents\DANT\changes\StalkMyFriends\src\main\java\com\dant\entity\dto\AccountDTO.java
+C:\Users\nguye\Documents\DANT\changes\StalkMyFriends\src\main\java\com\dant\entity\Friends.java
 C:\Users\nguye\Documents\DANT\changes\StalkMyFriends\src\main\java\com\dant\filter\LogFilter.java
 C:\Users\nguye\Documents\DANT\changes\StalkMyFriends\src\main\java\com\dant\app\TestEndpoint.java
 C:\Users\nguye\Documents\DANT\changes\StalkMyFriends\src\main\java\com\dant\exception\NotFoundExceptionMapper.java
@@ -14,3 +15,4 @@ C:\Users\nguye\Documents\DANT\changes\StalkMyFriends\src\main\java\com\dant\Cons
 C:\Users\nguye\Documents\DANT\changes\StalkMyFriends\src\main\java\com\dant\filter\GsonProvider.java
 C:\Users\nguye\Documents\DANT\changes\StalkMyFriends\src\main\java\com\dant\dao\DatastoreInit.java
 C:\Users\nguye\Documents\DANT\changes\StalkMyFriends\src\main\java\com\dant\entity\Position.java
+C:\Users\nguye\Documents\DANT\changes\StalkMyFriends\src\main\java\com\dant\entity\dto\FriendsDTO.java
