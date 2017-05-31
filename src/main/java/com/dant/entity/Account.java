@@ -31,6 +31,8 @@ public class Account implements Serializable {
     @Expose
     private String password;
     @Expose
+    private boolean isConnected;
+    @Expose
     private Position location;
     @Expose
     private String token;
@@ -135,6 +137,10 @@ public class Account implements Serializable {
         this.token = token;
     }
 
+    public boolean isConnected() {  return isConnected; }
+
+    public void connect(boolean connect) { isConnected = connect; }
+
     public Date getUpdated() {
         return updated;
     }
@@ -168,6 +174,6 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        return phoneNumber + password + token;
+        return phoneNumber +"\n" + password +"\n" + token +"\n" +isConnected;
     }
 }

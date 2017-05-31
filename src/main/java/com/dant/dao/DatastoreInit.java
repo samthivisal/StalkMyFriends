@@ -2,6 +2,7 @@ package com.dant.dao;
 
 import com.dant.Constant;
 import com.dant.entity.Account;
+import com.dant.entity.Friends;
 import com.dant.entity.Position;
 import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
@@ -32,6 +33,7 @@ class DatastoreInit {
             Set<Class> sets = new HashSet<>(1);
             sets.add(Account.class);
             sets.add(Position.class);
+            sets.add(Friends.class);
             return new Morphia(sets).createDatastore(clientMongo, Constant.LOCALHOST.getDbName());
         }
 

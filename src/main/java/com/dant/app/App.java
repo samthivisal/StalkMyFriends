@@ -1,6 +1,7 @@
 package com.dant.app;
 
 import com.dant.controller.AccountController;
+import com.dant.controller.FriendsController;
 import com.dant.exception.ForbiddenExceptionMapper;
 import com.dant.exception.NotFoundExceptionMapper;
 import com.dant.exception.RuntimeExceptionMapper;
@@ -23,6 +24,7 @@ public class App extends Application {
 		Set<Object> sets = new HashSet<>();
 		sets.add(new TestEndpoint());
 		sets.add(new AccountController());
+		sets.add(new FriendsController());
 		return sets;
 	}
 
