@@ -16,27 +16,29 @@ public class Friends {
     @Id
     private ObjectId id;
 
-    @Reference
-    private Account account1;
+    @Expose
+    private String number1;
 
-    @Reference
-    private Account account2;
+    @Expose
+    private String number2;
 
     @Expose
     private boolean accepted;
 
-    public Friends(Account account1, Account account2){
-        this.account1 = account1;
-        this.account2 = account2;
+    public Friends(){}
+
+    public Friends(String number1, String number2){
+        this.number1 = number1;
+        this.number2 = number2;
         accepted = false;
     }
 
-    public Account getAccount1(){
-        return account1;
+    public String getAccount1(){
+        return number1;
     }
 
-    public Account getAccount2(){
-        return account2;
+    public String getAccount2(){
+        return number2;
     }
 
     public boolean isAccepted(){
@@ -45,6 +47,10 @@ public class Friends {
 
     public void accept(boolean accept){
         accepted = accept;
+    }
+
+    public String toString(){
+        return number1 +"\n" +number2 +"\n" +accepted;
     }
 
 }

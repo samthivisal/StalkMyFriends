@@ -3,13 +3,9 @@ package com.dant.controller;
 import com.dant.dao.AccountDAO;
 import com.dant.entity.Account;
 import com.dant.entity.dto.AccountDTO;
-import com.dant.entity.dto.AccountLoginDTO;
 import com.dant.entity.dto.PositionDTO;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -36,15 +32,16 @@ public class AccountController {
 
     @POST
     @Path("/logout")
-    public Response test(Account account) {
+    public Response logOut(Account account) {
         new AccountDAO().logOut(account.getPhoneNumber());
         return Response.status(200).build();
     }
 
-    @POST
+
+    @DELETE
     @Path("/delete")
-    public Response delete(AccountLoginDTO accountLoginDTO) {
-        new AccountDAO().delete(accountLoginDTO.phoneNumber,accountLoginDTO.password);
+    public Response delete(Account account) {
+        new AccountDAO().delete(account.getPhoneNumber(),account.getPassword());
         return Response.status(200).build();
     }
 
@@ -54,7 +51,5 @@ public class AccountController {
         new AccountDAO().updateLocation(positionDTO.token,positionDTO.location);
         return Response.status(200).build();
     }
-
-
 
 }
