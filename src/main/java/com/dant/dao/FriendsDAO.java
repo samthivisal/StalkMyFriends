@@ -7,6 +7,7 @@ import com.dant.entity.dto.FriendsDTO;
 import org.mongodb.morphia.Datastore;
 
 import javax.ws.rs.ForbiddenException;
+import javax.ws.rs.NotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,10 +48,15 @@ public class FriendsDAO {
                     .field("number1").equal(number2)
                     .field("number2").equal(number1)
                     .get();
-
-        friends.accept(accept);
-        datastore.save(friends);
-        System.out.println(friends.toString());
+        if(friends == null){
+            System.out.println();
+            throw new NotFoundException();
+        }
+        else {
+            friends.accept(accept);
+            datastore.save(friends);
+            System.out.println(friends.toString());
+        }
         return friends;
     }
 
