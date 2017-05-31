@@ -48,7 +48,7 @@ public class AccountController {
     @POST
     @Path("/updateLocation")
     public Response updateLocation(PositionDTO positionDTO) {
-        new AccountDAO().updateLocation(positionDTO.token,positionDTO.location);
+        new AccountDAO().updateLocation(positionDTO.account.getToken(),positionDTO.location);
         return Response.status(200).build();
     }
 
